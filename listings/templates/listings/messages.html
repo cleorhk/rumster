@@ -1,0 +1,6 @@
+<h2>Inbox</h2>
+{% for message in received_messages %}
+    <p>From: {{ message.sender.username }}</p>
+    <p>Subject: {{ message.subject }}</p>
+    <p>{{ message.body }}</p>
+{% endfor %}

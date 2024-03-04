@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ item.title }}</h2>
+<p>{{ item.description }}</p>
+<p>County: {{ item.county }}</p>
+<p>Price: ${{ item.price }}</p>
+<p>Owner: {{ item.owner.username }}</p>
+<p>Type: {{ item.type }}</p>
+<!-- Add any other details you want to display -->
+
+{%endblock%}

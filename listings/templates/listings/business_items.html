@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <h1>Business Items</h1>
+    <form action="{% url 'business_items' %}" method="GET">
+        <label for="county-filter">Filter by County:</label>
+        <select name="county" id="county-filter">
+            <option value="">All Counties</option>
+            <option value="Nako">Nairobi</option>
+            <option value="Mako">Mombasa</option>
+        </select>
+        <button type="submit">Apply Filter</button>
+    </form>
+    <ul>
+        {% for item in items %}
+             <h2>{{ item.title }}</h2>
+    <p>{{ item.description }}</p>
+    <p>Price: ${{ item.price }}</p>
+ <p>County: ${{ item.county }}</p>
+    <p>Owner: {{ item.owner.username }}</p>
+    <p>Approved: {% if item.approved %}Yes{% else %}No{% endif %}</p>
+<a href="{% url 'read_more' item.pk %}"><button class="btn btn-primary">Read More</button></a>
+    {% if item.is_owner %}
+        <!-- Display "edit" and "delete" links only for items owned by the current user -->
+        <a href="{% url 'edit_item' item.pk %}">Edit</a>
+        <a href="{% url 'delete_item' item.pk %}">Delete</a>
+    {% endif %}
+    <hr>
+        {% endfor %}
+    </ul>
+</body>
+
+{%endblock%}

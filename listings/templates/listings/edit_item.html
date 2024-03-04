@@ -1,0 +1,10 @@
+<!-- Form to edit an existing item -->
+<h2>Edit Item</h2>
+<form method="post" action="{% url 'edit_item' item.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+   
+
+
+    <button type="submit">Save Changes</button>
+</form>

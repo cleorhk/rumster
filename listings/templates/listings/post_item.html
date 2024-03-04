@@ -1,0 +1,19 @@
+<!-- Form to post a new item -->
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<h2 xmlns="http://www.w3.org/1999/html">Post a New Item</h2>
+<form method="post" action="{% url 'post_item' %}">
+    {% csrf_token %}
+    {{form|crispy}}
+
+    <br>
+    
+    <button type="submit">Post Item</button>
+</form>
+
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+                    <p> {% if user.is_authenticated %}
+  Hi {{ user.username }}!
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <div class="alert alert-info" role="alert">
+  You are not Logged!
+</div>
+
+{% endif %}
+
+
+
+<!-- Display the list of items -->
+
+<!-- County filter dropdown -->
+    <form action="{% url 'item_list' %}" method="GET">
+        <label for="county-filter">Filter by County:</label>
+        <select name="county" id="county-filter">
+            <option value="">All Counties</option>
+            <option value="Nairobi">Nairo</option>
+            <option value="Mombasa">Mombasa</option>
+        </select>
+        <button type="submit">Apply Filter</button>
+    </form>
+
+{% for item in items %}
+    <h2>{{ item.title }}</h2>
+    <p>{{ item.description }}</p>
+    <p>Price: ${{ item.price }}</p>
+ <p>County: ${{ item.county }}</p>
+    <p>Owner: {{ item.owner.username }}</p>
+    <p>Approved: {% if item.approved %}Yes{% else %}No{% endif %}</p>
+<a href="{% url 'read_more' item.pk %}"><button class="btn btn-primary">Read More</button></a>
+    {% if item.is_owner %}
+        <!-- Display "edit" and "delete" links only for items owned by the current user -->
+        <a href="{% url 'edit_item' item.pk %}">Edit</a>
+        <a href="{% url 'delete_item' item.pk %}">Delete</a>
+    {% endif %}
+    <hr>
+{% endfor %}
+<!-- Display pagination links -->
+<div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ items.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}">next</a>
+            <a href="?page={{ items.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{%endblock%}
