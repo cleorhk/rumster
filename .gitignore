@@ -1,0 +1,26 @@
+# Python
+*.py[cod]
+__pycache__/
+*.so
+*.egg
+*.egg-info
+dist/
+build/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.sqlite3
+db.sqlite3
+
+# Migrations
+**/migrations/*
+!**/migrations/__init__.py
+
+# Environment
+.env
